@@ -12,8 +12,8 @@ database_name = "temp-email"
 database_id = "b87a740d-96d4-4849-9ab0-df677ef44e42"
 
 [vars]
-WORKER_URL = "https://email-worker.2668812066.workers.dev"
-EMAIL_DOMAIN = "220901.xyz"
+WORKER_URL = "https://temp-email.1850278148.workers.dev/"
+EMAIL_DOMAIN = "777.xyz"
 
 [build]
 command = "npm run build"
