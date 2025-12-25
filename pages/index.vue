@@ -1242,12 +1242,22 @@ async function checkEmailsAfterRefresh() {
 async function refreshEmail() {        
   isCreatingEmail.value = true
   try {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let username = '';
-    for (let i = 0; i < 8; i++) {
-      username += chars.charAt(Math.floor(Math.random() * chars.length));
+    // 调用后端API生成邮箱地址
+    const WORKER_URL = config.public.workerUrl;
+    const url = `${WORKER_URL}/generate`;
+    
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`生成邮箱失败: ${response.status}`);
     }
-    const address = `${username}@220901.xyz`;
+    
+    const data = await response.json();
+    const address = data.address;
+    
+    if (!address) {
+      throw new Error('未获取到有效的邮箱地址');
+    }
+    
     emailAddress.value = address
     
     // 保存新生成的邮件地址到 localStorage
@@ -1262,6 +1272,7 @@ async function refreshEmail() {
       console.error('初始检查失败:', err)
     });
   } catch (error: any) {
+    console.error('生成邮箱地址失败:', error);
     showNotification(t('app.emailCard.notifications.createFailed', '生成新邮箱失败'), 'error')
   } finally {
     isCreatingEmail.value = false
