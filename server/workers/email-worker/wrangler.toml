@@ -8,8 +8,8 @@ workers_dev = true
 # D1数据库绑定
 [[d1_databases]]
 binding = "DB"
-database_name = "temp_email_db"
-database_id = "0a1989cd-6f62-4aed-a6d1-31801c927c2c"
+database_name = "temp-email"
+database_id = "b87a740d-96d4-4849-9ab0-df677ef44e42"
 
 [vars]
 WORKER_URL = "https://email-worker.2668812066.workers.dev"
